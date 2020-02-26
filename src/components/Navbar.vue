@@ -9,9 +9,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn text>เข้าสู่ระบบ</v-btn>
+      <v-btn text to="/login">เข้าสู่ระบบ</v-btn>
 
-      <v-btn text>ลงทะเบียน</v-btn>
+      <v-btn text to="/register">ลงทะเบียน</v-btn>
     </v-app-bar>
   </div>
 </template>
