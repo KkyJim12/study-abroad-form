@@ -14,6 +14,10 @@ import BirthdayInput from "./components/BirthdayInput.vue";
 import SundayInput from "./components/SundayInput.vue";
 import DurationInput from "./components/DurationInput.vue";
 import DomitoryInput from "./components/DomitoryInput.vue";
+import DashboardAdmin from "./pages/Admin/Dashboard.vue";
+import CarouselAdmin from "./pages/Admin/carousel/index.vue";
+import CarouselCreateAdmin from "./pages/Admin/carousel/create.vue";
+import ImageUpload from "./components/ImageUpload.vue";
 
 Vue.use(VueRouter);
 
@@ -26,22 +30,25 @@ Vue.component("birthday-input", BirthdayInput);
 Vue.component("sunday-input", SundayInput);
 Vue.component("duration-input", DurationInput);
 Vue.component("domitory-input", DomitoryInput);
+Vue.component("image-upload", ImageUpload);
 
 const routes = [
   {
     path: "/",
     component: Master,
     children: [
-      { path: "/", component: HomePage },
-      { path: "/register", component: RegisterPage },
-      { path: "/login", component: LoginPage }
+      { path: "", component: HomePage },
+      { path: "register", component: RegisterPage },
+      { path: "login", component: LoginPage }
     ]
   },
   {
     path: "/admin",
     component: Admin,
     children: [
-      { path: "/", component: HomePage },
+      { path: "dashboard", component: DashboardAdmin },
+      { path: "carousel", component: CarouselAdmin },
+      { path: "carousel/create", component: CarouselCreateAdmin }
     ]
   }
 ];

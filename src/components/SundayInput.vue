@@ -42,9 +42,7 @@ export default {
     menu: false
   }),
   methods: {
-    onlySunday() {
-      
-    }
+    onlySunday() {}
   }
 };
 </script>
