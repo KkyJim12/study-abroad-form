@@ -95,16 +95,16 @@
       <v-col cols="6">
         <v-card class="pa-5">
           <v-row>
-            <v-col cols="4">
+            <v-col cols="6">
               <sunday-input></sunday-input>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="6">
               <duration-input></duration-input>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="6">
               <domitory-input></domitory-input>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="6">
               <v-text-field
                 prepend-icon="mdi-account-check"
                 label="Consult"

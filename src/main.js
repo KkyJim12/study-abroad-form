@@ -2,11 +2,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import VueRouter from "vue-router";
+import Master from "./layouts/Master.vue";
+import Admin from "./layouts/Admin.vue";
 import Navbar from "./components/Navbar.vue";
 import Carousel from "./components/Carousel.vue";
 import Footer from "./components/Footer.vue";
 import HomePage from "./pages/HomePage.vue";
 import RegisterPage from "./pages/RegisterPage.vue";
+import LoginPage from "./pages/LoginPage.vue";
 import BirthdayInput from "./components/BirthdayInput.vue";
 import SundayInput from "./components/SundayInput.vue";
 import DurationInput from "./components/DurationInput.vue";
@@ -25,8 +28,22 @@ Vue.component("duration-input", DurationInput);
 Vue.component("domitory-input", DomitoryInput);
 
 const routes = [
-  { path: "/", component: HomePage },
-  { path: "/register", component: RegisterPage }
+  {
+    path: "/",
+    component: Master,
+    children: [
+      { path: "/", component: HomePage },
+      { path: "/register", component: RegisterPage },
+      { path: "/login", component: LoginPage }
+    ]
+  },
+  {
+    path: "/admin",
+    component: Admin,
+    children: [
+      { path: "/", component: HomePage },
+    ]
+  }
 ];
 
 const router = new VueRouter({
