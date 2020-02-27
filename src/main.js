@@ -10,6 +10,7 @@ import RegisterPage from "./pages/RegisterPage.vue";
 import BirthdayInput from "./components/BirthdayInput.vue";
 import SundayInput from "./components/SundayInput.vue";
 import DurationInput from "./components/DurationInput.vue";
+import DomitoryInput from "./components/DomitoryInput.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,7 @@ Vue.component("footerbar", Footer);
 Vue.component("birthday-input", BirthdayInput);
 Vue.component("sunday-input", SundayInput);
 Vue.component("duration-input", DurationInput);
+Vue.component("domitory-input", DomitoryInput);
 
 const routes = [
   { path: "/", component: HomePage },

@@ -21,7 +21,13 @@
           v-on="on"
         ></v-combobox>
       </template>
-      <v-date-picker v-model="dates" multiple no-title scrollable>
+      <v-date-picker
+        v-model="dates"
+        multiple
+        no-title
+        scrollable
+        :allowed-dates="onlySunday()"
+      >
         <v-spacer></v-spacer>
         <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
         <v-btn text color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
@@ -34,6 +40,11 @@ export default {
   data: () => ({
     dates: [],
     menu: false
-  })
+  }),
+  methods: {
+    onlySunday() {
+      
+    }
+  }
 };
 </script>
