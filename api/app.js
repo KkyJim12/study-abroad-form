@@ -4,10 +4,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 require("./models/Carousel");
+require("./models/User");
 
 mongoose.connect("mongodb://localhost:27017/mangoproject", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 
 var db = mongoose.connection;
@@ -25,6 +27,7 @@ app.use(cors());
 
 require("./routes/Carousel")(app);
 require("./routes/ImageUpload")(app);
+require("./routes/User")(app);
 
 app.listen(3000, () => {
   console.log("server is running on port 3000");

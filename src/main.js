@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import VueRouter from "vue-router";
+import Vuelidate from "vuelidate";
 import Master from "./layouts/Master.vue";
 import Admin from "./layouts/Admin.vue";
 import Navbar from "./components/Navbar.vue";
@@ -20,6 +21,7 @@ import CarouselCreateAdmin from "./pages/Admin/carousel/create.vue";
 import ImageUpload from "./components/ImageUpload.vue";
 
 Vue.use(VueRouter);
+Vue.use(Vuelidate); 
 
 Vue.config.productionTip = false;
 
