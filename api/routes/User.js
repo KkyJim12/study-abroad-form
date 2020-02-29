@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("user");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 
@@ -40,7 +40,7 @@ module.exports = app => {
         .not()
         .isEmpty(),
       check("phone", "กรุณากรอกรูปแบบเบอร์โทรให้ถูกต้อง").isMobilePhone(),
-      check("gender")
+      check("gender", "กรุณาระบเพศ")
         .not()
         .isEmpty(),
       check("school", "กรุณาเลือกโรงเรียน")
@@ -65,6 +65,14 @@ module.exports = app => {
 
       if (!result.isEmpty()) {
         res.send({ status: "validate fail", data: errors });
+      }
+
+      const checkEmailExist = await User.findOne({ email: req.body.email });
+      if (checkEmailExist) {
+        res.send({
+          status: "Email Exist",
+          msg: 'อีเมลล์นี้ถูกใช้ไปแล้ว'
+        });
       }
 
       const user = await new User();

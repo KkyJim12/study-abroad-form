@@ -8,6 +8,11 @@
             <li v-for="error in errors">{{ error.msg }}</li>
           </ul>
         </v-alert>
+        <v-alert color="error" v-if="emailExist">
+          <ul>
+            <li>{{ emailExist }}</li>
+          </ul>
+        </v-alert>
       </v-col>
     </v-row>
     <v-row>
@@ -69,17 +74,13 @@
             </v-col>
             <v-col class="ml-5" cols="2">
               <label>Gender</label>
-              <v-radio-group>
+              <v-radio-group v-model="gender">
                 <v-row>
                   <v-col cols="6">
-                    <v-radio v-model="gender" value="1" label="Male"></v-radio>
+                    <v-radio :value="1" label="Male"></v-radio>
                   </v-col>
                   <v-col cols="6">
-                    <v-radio
-                      v-model="gender"
-                      value="2"
-                      label="Female"
-                    ></v-radio>
+                    <v-radio :value="2" label="Female"></v-radio>
                   </v-col>
                 </v-row>
               </v-radio-group>
@@ -129,11 +130,11 @@
               ></v-checkbox>
               <v-row>
                 <v-col cols="1">
-                  <v-checkbox v-model="enabled" hide-details></v-checkbox>
+                  <v-checkbox v-model="schoolOther" hide-details></v-checkbox>
                 </v-col>
                 <v-col cols="10">
                   <v-text-field
-                    :disabled="!enabled"
+                    v-model="checkboxOther"
                     label="อื่นๆ"
                   ></v-text-field>
                 </v-col>
@@ -223,7 +224,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      enabled: false,
       firstname: "",
       lastname: "",
       nickname: "",
@@ -232,7 +232,7 @@ export default {
       phone: "",
       email: "",
       password: "",
-      gender: "",
+      gender: 1,
       school: [],
       course: [],
       start_date: "",
@@ -240,7 +240,10 @@ export default {
       domitory: "",
       consult: "",
       comments: "",
-      errors: null
+      errors: null,
+      emailExist: null,
+      checkboxOther: "",
+      schoolOther: false
     };
   },
   methods: {
@@ -257,6 +260,9 @@ export default {
       this.domitory = e;
     },
     Register() {
+      if (this.schoolOther == true) {
+        this.school.push(this.checkboxOther);
+      }
       axios
         .post(process.env.VUE_APP_MAIN_API + "/api/register", {
           firstname: this.firstname,
@@ -280,6 +286,10 @@ export default {
           console.log(response.data);
           if (response.data.status == "validate fail") {
             this.errors = response.data.data;
+            window.scrollTo(0, 0);
+          } else if (response.data.status == "Email Exist") {
+            this.emailExist = response.data.msg;
+            window.scrollTo(0, 0);
           }
         });
     }
