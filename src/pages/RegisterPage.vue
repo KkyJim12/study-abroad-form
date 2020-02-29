@@ -283,8 +283,10 @@ export default {
           comments: this.comments
         })
         .then(response => {
-          console.log(response.data);
-          if (response.data.status == "validate fail") {
+          if (response.data.status == "success") {
+            localStorage.token = response.data.token;
+            window.location.href = "/";
+          } else if (response.data.status == "validate fail") {
             this.errors = response.data.data;
             window.scrollTo(0, 0);
           } else if (response.data.status == "Email Exist") {

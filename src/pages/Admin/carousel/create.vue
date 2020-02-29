@@ -12,7 +12,7 @@
     <v-row>
       <v-col cols="6">
         <v-card class="pa-5">
-          <v-form @submit="addCarousel()">
+          <v-form>
             <v-text-field label="ชื่อสไลด์" v-model="name"></v-text-field>
             <v-text-field label="ลิงค์" v-model="link"></v-text-field>
             <v-text-field
@@ -22,7 +22,7 @@
             ></v-text-field>
             <label>รูป</label>
             <image-upload @ImageUpload="ImageUpload"></image-upload>
-            <v-btn type="submit" class="mt-5" color="success" block
+            <v-btn @click="addCarousel()" class="mt-5" color="success" block
               >สร้างสไลด์</v-btn
             >
           </v-form>

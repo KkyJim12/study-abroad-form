@@ -32,6 +32,12 @@
     <v-app-bar color="blue" app clipped-left dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Mango Management</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <div v-if="token">
+        <v-btn cpo class="mr-2" text>{{ firstname }} {{ lastname }}</v-btn>
+        <v-btn to="/" v-if="admin" class="mr-2" color="success">หน้าหลัก</v-btn>
+        <v-btn @click="Logout()" class="mr-2" color="error">ลงชื่อออก</v-btn>
+      </div>
     </v-app-bar>
 
     <v-content>
@@ -45,12 +51,47 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  mounted() {
+    if (this.token) {
+      this.getUserInfo();
+    } else {
+      window.location.href = "/";
+    }
+  },
   props: {
     source: String
   },
   data: () => ({
-    drawer: null
-  })
+    drawer: null,
+    token: localStorage.token,
+    firstname: "",
+    lastname: "",
+    admin: null
+  }),
+  methods: {
+    getUserInfo() {
+      axios
+        .get(process.env.VUE_APP_MAIN_API + "/api/getUserInfo", {
+          headers: {
+            authorization: this.token
+          }
+        })
+        .then(response => {
+          this.firstname = response.data.data.firstname;
+          this.lastname = response.data.data.lastname;
+          this.admin = response.data.data.admin;
+
+          if (this.admin !== true) {
+            window.location.href = "/";
+          }
+        });
+    },
+    Logout() {
+      localStorage.clear();
+      window.location.href = "/";
+    }
+  }
 };
 </script>

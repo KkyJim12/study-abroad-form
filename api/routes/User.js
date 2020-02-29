@@ -3,6 +3,8 @@ const User = mongoose.model("user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
+const isAuthorized = require("../middlewares/Authorized");
+const cors = require("cors");
 
 module.exports = app => {
   //Register
@@ -71,7 +73,7 @@ module.exports = app => {
       if (checkEmailExist) {
         res.send({
           status: "Email Exist",
-          msg: 'อีเมลล์นี้ถูกใช้ไปแล้ว'
+          msg: "อีเมลล์นี้ถูกใช้ไปแล้ว"
         });
       }
 
@@ -94,8 +96,47 @@ module.exports = app => {
       user.comments = req.body.comments;
       user.save();
 
-      let token = jwt.sign({ userID: user._id }, "mango");
+      let token = jwt.sign({ userID: user._id }, "secret");
       res.send({ status: "success", token: token });
     }
   );
+
+  //Login
+  app.post(
+    "/api/login",
+    [
+      check("email", "กรุณากรอกอีเมลล์")
+        .not()
+        .isEmpty(),
+      check("password", "กรุณากรอกพาสเวิร์ด")
+        .not()
+        .isEmpty()
+    ],
+    async (req, res) => {
+      const login = await User.findOne({
+        email: req.body.email
+      });
+      if (login) {
+        if (bcrypt.compareSync(req.body.password, login.password)) {
+          let token = jwt.sign({ userID: login._id }, "secret");
+          res.send({ status: "success", token: token });
+        } else {
+          res.send({ status: "fail", msg: "พาสเวิร์ด หรือ อีเมลล์ผิด" });
+        }
+      } else {
+        res.send({ status: "fail", msg: "พาสเวิร์ด หรือ อีเมลล์ผิด" });
+      }
+    }
+  );
+
+  //Get user info
+  app.get("/api/getUserInfo", isAuthorized, async (req, res) => {
+    const token = req.headers.authorization;
+    const decoded = jwt.decode(token);
+    const myInfo = await User.findOne({
+      id: decoded.userId
+    });
+
+    res.json({ status: "success", data: myInfo });
+  });
 };

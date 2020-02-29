@@ -23,7 +23,6 @@ import CarouselEditAdmin from "./pages/Admin/carousel/edit.vue";
 import StudentAdmin from "./pages/Admin/student/index.vue";
 import StudentShowAdmin from "./pages/Admin/student/show.vue";
 
-
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
 

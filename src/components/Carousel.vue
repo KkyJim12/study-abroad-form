@@ -6,28 +6,24 @@
     delimiter-icon="mdi-minus"
     height="100%"
   >
-    <v-carousel-item v-for="(slide, i) in slides" :key="i">
-      <v-sheet :color="colors[i]" height="100%" tile>
-        <v-row class="fill-height" align="center" justify="center">
-          <div class="display-3">{{ slide }} Slide</div>
-        </v-row>
-      </v-sheet>
+    <v-carousel-item v-for="show in slides">
+      <img :src="'http://localhost:3000/api/image/' + show.image" />
     </v-carousel-item>
   </v-carousel>
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  mounted() {
+    axios.get(process.env.VUE_APP_MAIN_API + "/api/carousel").then(response => {
+      console.log(response.data);
+      this.slides = response.data.data;
+    });
+  },
   data() {
     return {
-      colors: [
-        "primary",
-        "secondary",
-        "yellow darken-4",
-        "red lighten-2",
-        "orange darken-1"
-      ],
-      slides: ["First", "Second", "Third", "Fourth", "Fifth"]
+      slides: []
     };
   }
 };
