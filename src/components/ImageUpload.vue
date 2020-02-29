@@ -3,6 +3,7 @@
     ref="myVueDropzone"
     id="dropzone"
     :options="dropzoneOptions"
+    @vdropzone-success="vsuccess"
   ></vue-dropzone>
 </template>
 <script>
@@ -16,13 +17,17 @@ export default {
   data: function() {
     return {
       dropzoneOptions: {
-        url: "https://httpbin.org/post",
+        url: process.env.VUE_APP_MAIN_API + "/api/image-upload",
         thumbnailWidth: 150,
         maxFilesize: 2,
-        maxFiles: 1,
-        headers: { "My-Awesome-Header": "header value" }
+        maxFiles: 1
       }
     };
+  },
+  methods: {
+    vsuccess(file, response) {
+      this.$emit("ImageUpload", response.data);
+    }
   }
 };
 </script>

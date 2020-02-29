@@ -15,13 +15,17 @@ import BirthdayInput from "./components/BirthdayInput.vue";
 import SundayInput from "./components/SundayInput.vue";
 import DurationInput from "./components/DurationInput.vue";
 import DomitoryInput from "./components/DomitoryInput.vue";
+import ImageUpload from "./components/ImageUpload.vue";
 import DashboardAdmin from "./pages/Admin/Dashboard.vue";
 import CarouselAdmin from "./pages/Admin/carousel/index.vue";
 import CarouselCreateAdmin from "./pages/Admin/carousel/create.vue";
-import ImageUpload from "./components/ImageUpload.vue";
+import CarouselEditAdmin from "./pages/Admin/carousel/edit.vue";
+import StudentAdmin from "./pages/Admin/student/index.vue";
+import StudentShowAdmin from "./pages/Admin/student/show.vue";
+
 
 Vue.use(VueRouter);
-Vue.use(Vuelidate); 
+Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 
@@ -50,7 +54,10 @@ const routes = [
     children: [
       { path: "dashboard", component: DashboardAdmin },
       { path: "carousel", component: CarouselAdmin },
-      { path: "carousel/create", component: CarouselCreateAdmin }
+      { path: "carousel/create", component: CarouselCreateAdmin },
+      { path: "carousel/:id/edit", component: CarouselEditAdmin },
+      { path: "student", component: StudentAdmin },
+      { path: "student/:id", component: StudentShowAdmin }
     ]
   }
 ];

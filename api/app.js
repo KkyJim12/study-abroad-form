@@ -28,6 +28,7 @@ app.use(cors());
 require("./routes/Carousel")(app);
 require("./routes/ImageUpload")(app);
 require("./routes/User")(app);
+require("./routes/Student")(app);
 
 app.listen(3000, () => {
   console.log("server is running on port 3000");

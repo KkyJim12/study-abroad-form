@@ -2,8 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h1>สไลด์</h1>
-        <v-btn to="/admin/carousel/create" color="success">สร้างสไลด์</v-btn>
+        <h1>นักเรียน</h1>
       </v-col>
     </v-row>
     <v-row>
@@ -22,19 +21,14 @@
           </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="carouselLists"
+            :items="studentLists"
             :items-per-page="10"
             :search="search"
             class="elevation-1"
           >
             <template v-slot:item.action="{ item }">
-              <v-btn icon :to="'/admin/carousel/' + item._id + '/edit'">
-                <v-icon small>mdi-pencil</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon @click="deleteCarousel(item._id)" small
-                  >mdi-delete</v-icon
-                >
+              <v-btn icon :to="'/admin/student/' + item._id">
+                <v-icon small>mdi-account</v-icon>
               </v-btn>
             </template>
           </v-data-table>
@@ -48,50 +42,49 @@
 import axios from "axios";
 export default {
   mounted() {
-    this.getCarouselLists();
+    this.getStudentLists();
   },
   data() {
     return {
       search: "",
-      carouselLists: [],
+      studentLists: [],
       headers: [
         {
-          text: "ชื่อ",
+          text: "ชื่อจริง",
           sortable: true,
-          value: "name"
+          value: "firstname"
         },
         {
-          text: "ลิงค์",
+          text: "นามสกุล",
           sortable: true,
-          value: "link"
+          value: "lastname"
         },
         {
-          text: "เรียง",
+          text: "ชื่อเล่น",
           sortable: true,
-          value: "sort"
+          value: "nickname"
+        },
+        {
+          text: "ระยะเวลา",
+          sortable: true,
+          value: "duration"
+        },
+        {
+          text: "ที่ปรึกษา",
+          sortable: true,
+          value: "consult"
         },
         { text: "จัดการ", value: "action", sortable: false }
       ]
     };
   },
   methods: {
-    getCarouselLists() {
+    getStudentLists() {
       axios
-        .get(process.env.VUE_APP_MAIN_API + "/api/carousel")
+        .get(process.env.VUE_APP_MAIN_API + "/api/student")
         .then(response => {
-          this.carouselLists = response.data.data;
+          this.studentLists = response.data.data;
         });
-    },
-    deleteCarousel(id) {
-      if (confirm("ต้องการลบจริงหรือ?")) {
-        axios
-          .delete(process.env.VUE_APP_MAIN_API + "/api/carousel/" + id)
-          .then(response => {
-            if (response.data.status == "success") {
-              this.getCarouselLists();
-            }
-          });
-      }
     }
   }
 };

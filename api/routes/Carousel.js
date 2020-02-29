@@ -26,7 +26,7 @@ module.exports = app => {
   });
 
   // Update Carousel
-  app.post("/api/carousel/:id", async (req, res) => {
+  app.put("/api/carousel/:id", async (req, res) => {
     const carousel = await Carousel.findById(req.params.id);
     carousel.name = req.body.name;
     carousel.link = req.body.link;

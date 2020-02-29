@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "DBHeavent";
+  src: url("../fonts/DBHeavent.ttf");
+}
+
+body {
+  font-family: "DBHeavent" !important;
+}
