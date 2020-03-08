@@ -12,7 +12,7 @@
         </v-list-item>
         <v-list-item link to="/admin/carousel">
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-view-carousel</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Carousel</v-list-item-title>
@@ -24,6 +24,22 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Student</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/admin/school">
+          <v-list-item-action>
+            <v-icon>mdi-office-building</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>School</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/admin/course">
+          <v-list-item-action>
+            <v-icon>mdi-book-open</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Course</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

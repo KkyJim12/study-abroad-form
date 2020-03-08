@@ -5,8 +5,10 @@ const cors = require("cors");
 
 require("./models/Carousel");
 require("./models/User");
+require("./models/School");
+require("./models/Course");
 
-mongoose.connect("mongodb://mongo:27017/mangoproject", {
+mongoose.connect("mongodb://localhost:27017/mangoproject", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
@@ -29,6 +31,8 @@ require("./routes/Carousel")(app);
 require("./routes/ImageUpload")(app);
 require("./routes/User")(app);
 require("./routes/Student")(app);
+require("./routes/School")(app);
+require("./routes/Course")(app);
 
 app.get("/test", (req, res) => {
   res.send("test");

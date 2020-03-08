@@ -22,6 +22,12 @@ import CarouselCreateAdmin from "./pages/Admin/carousel/create.vue";
 import CarouselEditAdmin from "./pages/Admin/carousel/edit.vue";
 import StudentAdmin from "./pages/Admin/student/index.vue";
 import StudentShowAdmin from "./pages/Admin/student/show.vue";
+import SchoolAdmin from "./pages/Admin/school/index.vue";
+import SchoolCreateAdmin from "./pages/Admin/school/create.vue";
+import SchoolEditAdmin from "./pages/Admin/school/edit.vue";
+import CourseAdmin from "./pages/Admin/course/index.vue";
+import CourseCreateAdmin from "./pages/Admin/course/create.vue";
+import CourseEditAdmin from "./pages/Admin/course/edit.vue";
 
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
@@ -56,7 +62,13 @@ const routes = [
       { path: "carousel/create", component: CarouselCreateAdmin },
       { path: "carousel/:id/edit", component: CarouselEditAdmin },
       { path: "student", component: StudentAdmin },
-      { path: "student/:id", component: StudentShowAdmin }
+      { path: "student/:id", component: StudentShowAdmin },
+      { path: "school", component: SchoolAdmin },
+      { path: "school/create", component: SchoolCreateAdmin },
+      { path: "school/:id/edit", component: SchoolEditAdmin },
+      { path: "course", component: CourseAdmin },
+      { path: "course/create", component: CourseCreateAdmin },
+      { path: "course/:id/edit", component: CourseEditAdmin }
     ]
   }
 ];

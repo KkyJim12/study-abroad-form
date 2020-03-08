@@ -94,39 +94,10 @@
             <v-col cols="6">
               <label>School</label>
               <v-checkbox
+                v-for="show in schoolLists"
                 v-model="school"
-                value="EV Academy"
-                label="EV Academy"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="school"
-                value="SMEAG"
-                label="SMEAG"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="school"
-                value="I.Breeze"
-                label="I.Breeze"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="school"
-                value="QQ English"
-                label="QQ English"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="school"
-                value="Beci"
-                label="Beci"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="school"
-                value="IDEA"
-                label="IDEA"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="school"
-                value="CELA"
-                label="CELA"
+                :value="show.name"
+                :label="show.name"
               ></v-checkbox>
               <v-row>
                 <v-col cols="1">
@@ -142,36 +113,11 @@
             </v-col>
             <v-col cols="6">
               <label>Course</label>
-              <v-checkbox v-model="course" value="ESL" label="ESL"></v-checkbox>
               <v-checkbox
+                v-for="show in courseLists"
                 v-model="course"
-                value="SPARTA"
-                label="SPARTA"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="course"
-                value="IELTS"
-                label="IELTS"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="course"
-                label="POWER SPEAKING"
-                value="POWER SPEAKING"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="course"
-                value="TOEIC"
-                label="TOEIC"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="course"
-                value="BUSSINESS"
-                label="BUSSINESS"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="course"
-                value="CELA"
-                label="CELA"
+                :value="show.name"
+                :label="show.name"
               ></v-checkbox>
             </v-col>
           </v-row>
@@ -222,8 +168,14 @@
 <script>
 import axios from "axios";
 export default {
+  mounted() {
+    this.getSchoolLists();
+    this.getCourseLists();
+  },
   data() {
     return {
+      schoolLists: [],
+      courseLists: [],
       firstname: "",
       lastname: "",
       nickname: "",
@@ -258,6 +210,16 @@ export default {
     },
     selectDomitory(e) {
       this.domitory = e;
+    },
+    getSchoolLists() {
+      axios.get(process.env.VUE_APP_MAIN_API + "/api/school").then(response => {
+        this.schoolLists = response.data.data;
+      });
+    },
+    getCourseLists() {
+      axios.get(process.env.VUE_APP_MAIN_API + "/api/course").then(response => {
+        this.courseLists = response.data.data;
+      });
     },
     Register() {
       if (this.schoolOther == true) {
